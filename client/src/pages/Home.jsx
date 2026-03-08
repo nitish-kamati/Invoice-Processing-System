@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import {Box, Typography, Button} from '@mui/material';
 import AddInvoice from "../components/AddInvoice";
 import Invoices from "../components/Invoices";
-import { getAllinvoices } from "../services/api";
+import { getAllinvoices, deleteInvoice } from "../services/api";
 
 
 const Home = () => {
@@ -18,10 +18,17 @@ const Home = () => {
             setInvoices(response.data);
         }
         getData();
-    }, [])
+    }, [addInvoice])
 
     const toggleInvoice = () => {
         setAddInvoice(true);
+    }
+
+    const removeInvoice = async (id) => {
+        await deleteInvoice(id);
+
+        const updateInvoice = invoices.filter(invoice => invoice.id !== id);
+        setInvoices(updateInvoice);
     }
     return (
         <>
@@ -37,7 +44,9 @@ const Home = () => {
                 {addInvoice && <AddInvoice setAddInvoice={setAddInvoice}/>}
 
                 <Box>
-                    <Invoices invoices={invoices} />
+                        <Invoices invoices={invoices}
+                        removeInvoice={removeInvoice}
+                    />
                 </Box>
                 </Box>
         

@@ -9,7 +9,7 @@ import  java.util.List;
 @RestController
 @CrossOrigin
 
-public class InvoiceController {
+public class InvoiceController{
 
     @Autowired
     InvoiceService invoiceService;
@@ -23,5 +23,10 @@ public class InvoiceController {
     @GetMapping("/invoice")
     public List<Invoice> getInvoices() {
         return this.invoiceService.getInvoices();
+    }
+
+@DeleteMapping("invoice/{invoiceId}")
+public Invoice deleteInvoice(@PathVariable String invoiceId) {
+    return  this.invoiceService.deleteInvoice(Long.parseLong(invoiceId));
     }
 }
