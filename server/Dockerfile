@@ -1,9 +1,10 @@
-
 FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
 COPY . .
+
+WORKDIR /app/server
 
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
